@@ -193,14 +193,18 @@
   </div>
 </template>
 <script>
-import errorMessage from "../components/lib/errors";
+import errorMessage from "../components/lib/errors"
+import {clientID, clientSecret} from '../config'
 export default {
   layout: "login",
   data() {
     return {
       user: {
         username: "7696446317",
-        password: "4040",
+        password: "",
+        client_id: clientID,
+        client_secret: clientSecret,
+        grant_type: 'password',
       },
       is_forgot: false,
       isLoging: false,
@@ -224,17 +228,20 @@ export default {
       }
 
       this.isLoging = true;
-
+       this.$auth.fetchUser()
       
       this.$auth
-        .loginWith("laravelSanctum", { data: this.user })
+        .loginWith("local", { data: this.user })
         .then((res) => {
+          console.log(res)
           this.isLoging = false;
-          let user = this.$auth.user;
-        //   window.location = "/dashboard";
-        //   this.$router.push({ path: "/dashboard" });
+          let user = this.$auth.user
+          this.$auth.fetchUser()
+          // window.location = "/dashboard";
+          this.$router.push({ path: "/dashboard" });
         })
         .catch((err) => {
+          console.log(err);
           this.isLoging = false;
           let errMsg = errorMessage(err.response);
           this.$swal("Oops!", errMsg, "error");

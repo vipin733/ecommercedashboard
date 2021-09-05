@@ -6,6 +6,7 @@
   import Dashboard from './dashboard'
 
   export default {
+
     components: {
       Dashboard
     },

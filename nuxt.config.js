@@ -6,7 +6,7 @@ export default {
     ** Headers of the page
     */
   head: {
-    title: 'Cameeto',
+    title: 'E-Commerce',
     meta: [
       {charset: 'utf-8'},
       {'http-equiv': 'X-UA-Compatible', content: 'IE=edge,chrome=1'},
@@ -86,7 +86,7 @@ export default {
   */
   axios: {
     baseURL: process.env.API_URL,
-    credentials: true,
+    credentials: false,
     proxy: true,
   },
 
@@ -108,29 +108,45 @@ export default {
     },
 
     strategies: {
-      // local: {
+      // laravelSanctum: {
+      //   provider: 'laravel/sanctum',
+      //   url: 'lara',
       //   endpoints: {
+      //     user: { url: '/user', method: 'get' },
       //     login: {
-      //       url: process.env.API_URL + "/api/oauth/token",
-      //       method: 'post',
-      //       propertyName: 'access_token'
-      //     },
-      //     logout: {
-      //       url:  process.env.API_URL + "/logout",
-      //       method: 'post'
-      //     },
-      //     user: {
-      //       url: process.env.API_URL + "/user",
-      //       method: 'get',
-      //       propertyName: false
+      //       url: '/login', method: 'post'
       //     }
       //   }
       // },
 
-      laravelSanctum: {
-        provider: 'laravel/sanctum',
-        url: 'lara',
-      }
+      local: {
+        endpoints: {
+          login: {
+            url: "/lara/oauth/token",
+            method: 'post',
+            // propertyName: 'access_token'
+          },
+          logout: {
+            url:  "/lara/logout",
+            method: 'post'
+          },
+          user: {
+            url: "/lara/api/v1/user",
+            method: 'get',
+            // propertyName: false
+          }
+        }
+      },
+
+      // laravelPassport: {
+      //   provider: 'laravel/passport',
+      //   endpoints: {
+      //     userInfo: '/api/v1/user'
+      //   },
+      //   url: 'lara',
+      //   clientId: process.env.CLIENT_ID,
+      //   clientSecret: process.env.CLIENT_SECRET,
+      // }
 
     }
 
